@@ -13,11 +13,34 @@
        http://www.springframework.org/schema/tx
        http://www.springframework.org/schema/tx/spring-tx.xsd">
        
+       <context:component-scan base-package="" />
+       
        <bean id="dataSource" class="org.apache.ibatis.datasource.pooled.PooledDataSource">
 	       	<property name="driver" value="com.mysql.cj.jdbc.Driver" />
 	       	<property name="url" value="jdbc:mysql:localhost:3306/hrms?serverTimeZone=GMT" />
 	       	<property name="username" value="root" />
 	       	<property name="password" value="null" />
+       </bean>
+       
+       
+       <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessioFactoryBean">
+       		<!-- 设置mybatis配置xml的路径 -->
+       		<property name="configLocation" value="classpath:mybatis-config.xml" />
+       		<!-- 配置数据源，必选项 -->
+       		<property name="dataSource" ref="dataSource" />
+       		<!-- 配置SqlSessionFactoryBean 扫描XML映射文件的路径 -->
+       		<property name="mapperLocation">
+       			<array>
+       				<value>classpath:zzh/hrms/**/mapper/*.xml</value>
+       			</array>
+       		</property>
+       		<!-- 设置别名，可直接使用model代替绝对路径 -->
+       		<property name="typeAliasesPackage" value="zzh.hrms.web.model" />
+       </bean>
+       
+       <!-- 扫描所有的Mapper接口，需要时，直接注入 -->
+       <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+       		<property name="basePacage" value="zzh.hrms.**.mapper" />
        </bean>
        
 </beans>

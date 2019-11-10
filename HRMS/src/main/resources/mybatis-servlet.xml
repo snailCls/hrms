@@ -10,4 +10,18 @@
        http://www.springframework.org/schema/context
        http://www.springframework.org/schema/context/spring-context.xsd">
        
+       <!-- 支持注解 -->
+       <mvc:annotation-driven />
+       <!-- 配置一个简单的映射规则 -->
+       <!-- <mvc:resources location="" mapping="" /> -->
+       <!-- 配置一个包扫描 -->
+       <context:component-scan base-package="zzh.hrms.web.controller" />
+       
+       
+       <!-- 视图名映射配置 -->
+       <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+       		<property name="viewClass" value="org.springframework.web.servlet.view.JstlView" />
+       		<property name="prefix" value="/WEB-INF/jsp/" />
+       		<property name="suffix" value=".jsp" />
+       </bean>
 </beans> 
